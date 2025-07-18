@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+  <img src="{% static 'images/hero-bg.jpg' %}" alt="Hero Image" class="hero-image" />
+
+  <div class="hero-overlay">
+    <div class="hero-text">
+      <h1>Find Your Dream Rental</h1>
+      <p>Explore the best listings in your area with ease and confidence.</p>
+      <a href="{% url 'property' %}" class="hero-btn">View Properties</a>
+    </div>
+  </div>
+</section>
+
+<!-- About Us Section -->
+<section class="about">
+  <div class="container about-content">
+    <h2>About Us</h2>
+    <p>
+      RentEasy is a modern platform designed to simplify rental property management. 
+      Whether you're a tenant, landlord, or property manager, we offer seamless tools for communication, booking repairs, and managing listings.
+    </p>
+  </div>
+</section>
+
+<!-- Why Choose Us Section -->
+<section class="why-choose">
+  <div class="container why-content">
+    <h2>Why Choose Moovi</h2>
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+        <h3>Secure & Reliable</h3>
+        <p>We prioritize your safety with secure user data handling and verified property listings.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+        <h3>Fast Communication</h3>
+        <p>Real-time updates between tenants and landlords ensure everything moves smoothly and quickly.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon"><i class="fas fa-cogs"></i></div>
+        <h3>Easy Repairs</h3>
+        <p>Log repair requests, track progress, and stay informed—all within one powerful platform.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Role-Based Call to Action -->
+<section class="role-cta">
+  <div class="container">
+    <h2>Get Started Based on Your Role</h2>
+    <div class="role-grid">
+      <div class="role-card">
+        <i class="fa-solid fa-key"></i>
+        <h3>I’m a Tenant</h3>
+        <p>Looking for your next rental? Browse available properties tailored for you.</p>
+        <a href="#" class="btn">View Properties</a>
+      </div>
+      <div class="role-card">
+        <i class="fa-solid fa-building-user"></i>
+        <h3>I’m a Landlord</h3>
+        <p>Manage your listings, review requests, and connect with tenants easily.</p>
+        <a href="#" class="btn">List My Property</a>
+      </div>
+      <div class="role-card">
+        <i class="fa-solid fa-user-shield"></i>
+        <h3>I’m an Admin</h3>
+        <p>Access the admin panel to manage platform activity and user roles.</p>
+        <a href="#" class="btn">Go to Dashboard</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

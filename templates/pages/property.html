@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<main>
+
+  <!-- Hero + Search Section -->
+  <section class="property-hero">
+    <div class="container">
+      <h1>Find Your Perfect Rental</h1>
+      <form class="search-form">
+        <select name="location">
+          <option selected disabled>Location</option>
+          <option>Nairobi</option>
+          <option>Mombasa</option>
+        </select>
+        <select name="type">
+          <option selected disabled>Property Type</option>
+          <option>Apartment</option>
+          <option>Studio</option>
+        </select>
+        <select name="price">
+          <option selected disabled>Price Range</option>
+          <option>Below Ksh 10K</option>
+          <option>10K - 30K</option>
+        </select>
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Featured Properties Section -->
+  <section class="property-listings">
+    <div class="container">
+      <h2>Featured Properties</h2>
+      <div class="property-grid">
+        {% for property in properties %}
+  <div class="property-card">
+    <img src="{{ property.image.url }}" alt="{{ property.title }}" />
+    <div class="property-info">
+      <h3>{{ property.title }}</h3>
+      <p class="price">Ksh {{ property.price }}/month</p>
+      <p class="location">{{ property.location }}</p>
+      <a href="{% url 'property_detail' property.id %}" class="btn">View Details</a>
+    </div>
+  </div>
+{% empty %}
+  <p>No properties available.</p>
+{% endfor %}
+
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <a href="#" class="page">&laquo;</a>
+        <a href="#" class="page active">1</a>
+        <a href="#" class="page">2</a>
+        <a href="#" class="page">3</a>
+        <a href="#" class="page">&raquo;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats / Metrics Section -->
+  <section class="stats-section">
+    <div class="container stats-grid">
+      <div class="stat-box">
+        <i class="fa-solid fa-building"></i>
+        <h3>500+</h3>
+        <p>Properties Listed</p>
+      </div>
+      <div class="stat-box">
+        <i class="fa-solid fa-users"></i>
+        <h3>1,000+</h3>
+        <p>Registered Tenants</p>
+      </div>
+      <div class="stat-box">
+        <i class="fa-solid fa-user-tie"></i>
+        <h3>100+</h3>
+        <p>Verified Landlords</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials">
+    <div class="container">
+      <h2>What Our Users Say</h2>
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <p>"RentEasy helped me find a great apartment quickly and stress-free. I highly recommend it!"</p>
+          <h4>— Jane W., Tenant</h4>
+        </div>
+        <div class="testimonial-card">
+          <p>"As a landlord, listing and managing my properties has never been easier. Great support too!"</p>
+          <h4>— Peter M., Landlord</h4>
+        </div>
+        <div class="testimonial-card">
+          <p>"A smooth experience for both tenants and landlords. The repair request system is top-notch."</p>
+          <h4>— Sharon K., Tenant</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+{% endblock %}

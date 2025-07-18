@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="dashboard">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>Landlord</h2>
+    <nav>
+      <ul>
+        <li>
+          <a href="{% url 'landlord_properties' %}">
+            <i class="fa-solid fa-building"></i> My Properties
+          </a>
+        </li>
+        <li class="active">
+          <a href="{% url 'landlord_add_property' %}">
+            <i class="fa-solid fa-plus-circle"></i> Add Property
+          </a>
+        </li>
+        <li>
+        <a href="{% url 'landlord_repair_requests' %}">
+          <i class="fa-solid fa-tools"></i> Repair Requests
+        </a>
+      </li>
+        <li>
+          <a href=""><i class="fa-solid fa-sign-out-alt"></i> Logout</a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1>Add New Property</h1>
+    </header>
+
+    <section class="form-section">
+      <form action="{% url 'landlord_add_property' %}" method="POST" enctype="multipart/form-data" class="property-form">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Property Title" required />
+        <input type="text" name="location" placeholder="Location" required />
+        <input type="number" name="price" placeholder="Price per Month (Ksh)" required />
+        <textarea name="description" rows="4" placeholder="Description"></textarea>
+        <input type="file" name="image" required />
+        <button type="submit" class="btn submit-btn">Add Property</button>
+      </form>
+    </section>
+  </main>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Property Image Carousel -->
+<section class="property-carousel">
+  <div class="carousel-container">
+    {% for img in property.images.all %}
+  <div class="carousel-slide {% if forloop.first %}active{% endif %}">
+    <img src="{{ img.image.url }}" alt="{{ property.title }}">
+  </div>
+{% empty %}
+  <div class="carousel-slide active">
+    <img src="{% static 'assets/hero-bg.jpg' %}" alt="Placeholder">
+  </div>
+{% endfor %}
+
+    <button class="carousel-btn prev">&#10094;</button>
+    <button class="carousel-btn next">&#10095;</button>
+  </div>
+</section>
+
+<!-- Property Basic Info -->
+<section class="property-info">
+  <div class="container">
+    <h1>{{ property.title }}</h1>
+    <p class="location"><i class="fa-solid fa-location-dot"></i> {{ property.location }}</p>
+    <p class="price">Ksh {{ property.price }}/month</p>
+  </div>
+</section>
+
+<!-- Property Description and Details -->
+<section class="property-details">
+  <div class="container details-grid">
+    <!-- Left: Description -->
+    <div class="details-left">
+      <h2>Description</h2>
+      <p>{{ property.description }}</p>
+    </div>
+
+    <!-- Right: Key Info -->
+    <div class="details-right">
+      <h2>Property Info</h2>
+      <ul>
+        <li><strong>Bedrooms:</strong> {{ property.bedrooms }}</li>
+    <li><strong>Bathrooms:</strong> {{ property.bathrooms }}</li>
+    <li><strong>Size:</strong> {{ property.size }}</li>
+    <li><strong>Status:</strong> {{ property.status }}</li>
+    <li><strong>Furnished:</strong> {{ property.furnished|yesno:"Yes,No" }}</li>
+    <li><strong>Parking:</strong> {{ property.parking }}</li>
+      </ul>
+      <a href="#" class="btn">Contact Landlord</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="dashboard">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>Landlord</h2>
+    <nav>
+      <ul>
+        <li>
+          <a href="{% url 'landlord_properties' %}">
+            <i class="fa-solid fa-building"></i> My Properties
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'landlord_add_property' %}">
+            <i class="fa-solid fa-plus-circle"></i> Add Property
+          </a>
+        </li>
+        <li class="active">
+          <a href="{% url 'landlord_repair_requests' %}">
+            <i class="fa-solid fa-tools"></i> Repair Requests
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <i class="fa-solid fa-sign-out-alt"></i> Logout
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1>Repair Requests</h1>
+    </header>
+
+    <section class="data-section">
+      <table>
+        <thead>
+          <tr>
+            <th>Tenant</th>
+            <th>Property</th>
+            <th>Issue</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Update</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for request in repair_requests %}
+          <tr>
+            <td>{{ request.tenant }}</td>
+            <td>{{ request.property }}</td>
+            <td>{{ request.issue }}</td>
+            <td>
+              <span class="status {{ request.status|lower }}">
+                {{ request.status }}
+              </span>
+            </td>
+            <td>{{ request.created_at|date:"M d, Y" }}</td>
+            <td>
+              <form method="POST" action="{% url 'update_repair_status' request.id %}">
+                {% csrf_token %}
+                <select name="status" class="status-dropdown">
+                  <option value="Pending" {% if request.status == "Pending" %}selected{% endif %}>Pending</option>
+                  <option value="In Progress" {% if request.status == "In Progress" %}selected{% endif %}>In Progress</option>
+                  <option value="Resolved" {% if request.status == "Resolved" %}selected{% endif %}>Resolved</option>
+                </select>
+                <button type="submit" class="btn small-btn">Update</button>
+              </form>
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="6">No repair requests found.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  </main>
+</div>
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="dashboard">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>Landlord</h2>
+    <nav>
+      <ul>
+        <li>
+          <a href="{% url 'landlord' %}">
+            <i class="fa-solid fas fa-user"></i> Profile
+          </a>
+      </li>
+      <li>
+        <a href="{% url 'landlord_properties' %}">
+          <i class="fa-solid fa-building"></i> My Properties
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'landlord_add_property' %}">
+          <i class="fa-solid fa-plus-circle"></i> Add Property
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'landlord_repair_requests' %}">
+          <i class="fa-solid fa-tools"></i> Repair Requests
+        </a>
+      </li>
+        <li><a href="{% url 'logout' %}">
+          <i class="fa-solid fa-sign-out-alt"></i> Logout</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Topbar -->
+    <header class="topbar">
+      <h1>Welcome,{{ user.username }}</h1>
+      <i class="fa-solid fa-bell"></i>
+    </header>
+
+    <!-- Stats Cards -->
+
+    <section class="dashboard-cards">
+    <div class="card">
+      <h3>Total Properties</h3>
+      <p>{{ total_properties }}</p>
+    </div>
+    <div class="card">
+      <h3>Open Repairs</h3>
+      <p>{{ open_repairs }}</p>
+    </div>
+    <div class="card">
+      <h3>Tenants</h3>
+      <p>{{ total_tenants }}</p>
+    </div>
+  </section>
+
+
+    <!-- Properties Table -->
+    <section class="data-section">
+      <h2>My Properties</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Tenants</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% if properties %}
+          {% for property in properties %}
+            <tr>
+              <td>{{ property.title }}</td>
+              <td>{{ property.location }}</td>
+              <td>{{ property.status }}</td>
+              <td>--</td> <!-- You can populate this later with tenant info -->
+              <td><button href="#">Edit</button></td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr><td colspan="5">No properties yet.</td></tr>
+        {% endif %}
+      </tbody>
+
+      </table>
+    </section>
+
+    <!-- Repair Requests Table -->
+    <section class="data-section">
+      <h2>Repair Requests</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Tenant</th>
+            <th>Property</th>
+            <th>Issue</th>
+            <th>Status</th>
+            <th>Update</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Jane W.</td>
+            <td>Modern 2BR</td>
+            <td>Leaking pipe</td>
+            <td>Pending</td>
+            <td><button>Mark as Fixed</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</div>
+{% endblock %}

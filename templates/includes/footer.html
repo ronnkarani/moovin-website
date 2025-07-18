@@ -1,0 +1,37 @@
+{% load static %}
+<footer class="footer">
+  <div class="footer-upper container">
+    <div class="footer-logo">
+      <div class="logo">
+        <a href="{% url 'home' %}" class="logo-link">
+          <img src="{% static 'images/logo1.png' %}" alt="Logo" class="site-logo">
+              <span class="logo-text">Moovin</span>
+        </a>
+      </div>
+      <p>Your trusted rental partner.</p>
+    </div>
+
+    <div class="footer-links">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="">Property</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-socials">
+      <h3>Connect With Us</h3>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-lower">
+    <p>&copy; 2025 Moovin. All rights reserved.</p>
+    <p>Developed by Ronny Karani</p>
+  </div>
+</footer>

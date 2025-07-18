@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="auth-section">
+  <div class="auth-container">
+    <div class="auth-box">
+      <h2 class="auth-title">Login to Moovi</h2>
+
+      {% if form.errors %}
+        <div class="auth-error">
+          <p>Invalid username or password. Please try again.</p>
+        </div>
+      {% endif %}
+
+      <form method="POST" class="auth-form">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="username">Username</label>
+          {{ form.username }}
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          {{ form.password }}
+        </div>
+
+        <button type="submit" class="btn auth-btn">Login</button>
+      </form>
+
+      <p class="auth-footer">
+        Don't have an account? <a href="">Register here</a>
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}

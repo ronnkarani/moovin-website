@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="dashboard tenant-dashboard">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>Tenant</h2>
+    <nav>
+      <ul>
+<li>
+        <a href="{% url 'tenant_profile' %}">
+          <i class="fa-solid fa-user"></i> Profile
+        </a>
+      </li>        
+<li>
+        <a href="{% url 'tenant_request_repair' %}">
+          <i class="fa-solid fa-screwdriver-wrench"></i> Request Repair
+        </a>
+      </li>       
+       <li><a href="#"><i class="fa-solid fa-sign-out-alt"></i> Logout</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1>Submit a Repair Request</h1>
+    </header>
+
+    <section class="form-section">
+      <form action="{% url 'tenant_request_repair' %}" method="POST" enctype="multipart/form-data" class="repair-form">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Repair Title (e.g., Broken Faucet)" required />
+        <textarea name="description" rows="4" placeholder="Describe the issue in detail..." required></textarea>
+        <input type="file" name="image" />
+        <button type="submit" class="btn submit-btn">Submit Request</button>
+      </form>
+    </section>
+  </main>
+</section>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="dashboard">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>Landlord</h2>
+    <nav>
+      <ul>
+        <li>
+  <a href="{% url 'landlord_properties' %}">
+    <i class="fa-solid fa-building"></i> My Properties
+  </a>
+</li>
+      <li><a href="{% url 'landlord_add_property' %}"><i class="fa-solid fa-plus-circle"></i> Add Property</a></li>
+<li>
+        <a href="{% url 'landlord_repair_requests' %}">
+          <i class="fa-solid fa-tools"></i> Repair Requests
+        </a>
+      </li>
+      <li><i class="fa-solid fa-sign-out-alt"></i> Logout</li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1>My Properties</h1>
+    </header>
+
+    <section class="data-section">
+      <table>
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if properties %}
+          {% for property in properties %}
+            <tr>
+              <td>{{ property.title }}</td>
+              <td>{{ property.location }}</td>
+              <td>{{ property.status }}</td>
+              <td>--</td> <!-- You can populate this later with tenant info -->
+              <td><button href="#">Edit</button></td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr><td colspan="5">No properties yet.</td></tr>
+        {% endif %}
+      </tbody>
+      </table>
+    </section>
+  </main>
+</div>
+
+{% endblock %}
