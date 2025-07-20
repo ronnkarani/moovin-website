@@ -5,6 +5,7 @@ from django.contrib.auth import views as auth_views
 from core.views import property_list
 from django.contrib.auth.views import LogoutView
 from .views import custom_logout_view
+from .views import TenantDashboardView
 
 
 urlpatterns = [
@@ -16,7 +17,10 @@ urlpatterns = [
     
     path('property/<int:pk>/', views.property_detail, name='property_detail'),
     
-    path('dashboard/landlord/', views.landlord_dashboard, name='landlord'),
+    path('landlord/properties/<int:pk>/edit/', views.edit_property, name='edit_property'),
+
+    
+    path('landlord/', views.landlord_dashboard, name='landlord'),
     
     path('login/', CustomLoginView.as_view(), name='login'),
     
@@ -28,7 +32,10 @@ urlpatterns = [
     
     path('landlord/repairs/', views.landlord_repair_requests, name='landlord_repair_requests'),
     
-    path('tenant/profile/', views.tenant_profile, name='tenant_profile'),
+path('repairs/<int:repair_id>/mark-fixed/', views.update_repair_status, name='update_repair_status'),
+
+    
+    path('tenant/profile/', TenantDashboardView.as_view(), name='tenant_profile'),
     
     path('tenant/request-repair/', views.tenant_request_repair, name='tenant_request_repair'),
 

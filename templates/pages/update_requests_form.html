@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="form-container">
+  <h2>Update Repair Status</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn">Save Changes</button>
+    <a href="{% url 'landlord_repair_requests' %}" class="btn">Cancel</a>
+  </form>
+</div>
+{% endblock %}

@@ -81,7 +81,12 @@
               <td>{{ property.location }}</td>
               <td>{{ property.status }}</td>
               <td>--</td> <!-- You can populate this later with tenant info -->
-              <td><button href="#">Edit</button></td>
+              <td>
+  <a href="{% url 'edit_property' property.id %}">
+    <button>Edit</button>
+  </a>
+</td>
+
             </tr>
           {% endfor %}
         {% else %}
@@ -106,14 +111,30 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Jane W.</td>
-            <td>Modern 2BR</td>
-            <td>Leaking pipe</td>
-            <td>Pending</td>
-            <td><button>Mark as Fixed</button></td>
-          </tr>
-        </tbody>
+  {% if repair_requests %}
+    {% for request in repair_requests %}
+      <tr>
+        <td>{{ request.tenant.username }}</td>
+        <td>{{ request.property.title }}</td>
+        <td>{{ request.issue }}</td>
+        <td>{{ request.status }}</td>
+        <td>
+          {% if request.status == "Pending" %}
+            <form method="post" action="{% url 'update_repair_status' request.id %}">
+              {% csrf_token %}
+              <button type="submit">Update</button>
+            </form>
+          {% else %}
+            Fixed
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+  {% else %}
+    <tr><td colspan="5">No repair requests available.</td></tr>
+  {% endif %}
+</tbody>
+
       </table>
     </section>
   </main>

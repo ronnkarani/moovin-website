@@ -9,6 +9,11 @@
     <nav>
       <ul>
         <li>
+          <a href="{% url 'landlord' %}">
+            <i class="fa-solid fas fa-user"></i> Profile
+          </a>
+      </li>
+        <li>
           <a href="{% url 'landlord_properties' %}">
             <i class="fa-solid fa-building"></i> My Properties
           </a>
@@ -39,46 +44,40 @@
     </header>
 
     <section class="data-section">
-      <table>
-        <thead>
-          <tr>
-            <th>Tenant</th>
-            <th>Property</th>
-            <th>Issue</th>
-            <th>Status</th>
-            <th>Date</th>
-            <th>Update</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for request in repair_requests %}
-          <tr>
-            <td>{{ request.tenant }}</td>
-            <td>{{ request.property }}</td>
-            <td>{{ request.issue }}</td>
-            <td>
-              <span class="status {{ request.status|lower }}">
-                {{ request.status }}
-              </span>
-            </td>
-            <td>{{ request.created_at|date:"M d, Y" }}</td>
-            <td>
-              <form method="POST" action="{% url 'update_repair_status' request.id %}">
-                {% csrf_token %}
-                <select name="status" class="status-dropdown">
-                  <option value="Pending" {% if request.status == "Pending" %}selected{% endif %}>Pending</option>
-                  <option value="In Progress" {% if request.status == "In Progress" %}selected{% endif %}>In Progress</option>
-                  <option value="Resolved" {% if request.status == "Resolved" %}selected{% endif %}>Resolved</option>
-                </select>
-                <button type="submit" class="btn small-btn">Update</button>
-              </form>
-            </td>
-          </tr>
-          {% empty %}
-          <tr><td colspan="6">No repair requests found.</td></tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      {% if repair_requests %}
+        <table>
+          <thead>
+            <tr>
+              <th>Tenant</th>
+              <th>Property</th>
+              <th>Issue</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Update</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for req in repair_requests %}
+              <tr>
+                <td>{{ req.tenant.username }}</td>
+                <td>{{ req.property.name }}</td>
+                <td>{{ req.issue }}</td>
+                <td>{{ req.status }}</td>
+                <td>{{ req.created_at|date:"Y-m-d H:i" }}</td>
+                <td>
+                  <a href="{% url 'update_repair_status' req.pk %}">
+                    <button>Update</button>
+                  </a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p style="padding: 20px; text-align: center; font-size: 18px; color: #666;">
+          No repair requests available.
+        </p>
+      {% endif %}
     </section>
   </main>
 </div>

@@ -16,10 +16,18 @@ class UserProfile(models.Model):
 
 
 class Property(models.Model):
+    PROPERTY_TYPE_CHOICES = [
+        ('Apartment', 'Apartment'),
+        ('Bedsitter', 'Bedsitter'),
+        ('Studio', 'Studio'),
+        ('Maisonette', 'Maisonette'),
+        # Add more types as needed
+    ]
     landlord = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='properties')
     tenant = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='rented_properties')
     title = models.CharField(max_length=255)
     description = models.TextField()
+    property_type = models.CharField(max_length=50, choices=PROPERTY_TYPE_CHOICES, default='Apartment')  # 👈 Add this line
     price = models.DecimalField(max_digits=10, decimal_places=2)
     location = models.CharField(max_length=255)
     image = models.ImageField(upload_to='property_images/', null=True, blank=True)
@@ -52,3 +60,10 @@ class RepairRequest(models.Model):
 
     def __str__(self):
         return f"{self.tenant.username} - {self.property.title} - {self.status}"
+    
+class RepairRequest(models.Model):
+    tenant = models.ForeignKey(User, on_delete=models.CASCADE)
+    property = models.ForeignKey(Property, on_delete=models.CASCADE)
+    issue = models.TextField()  # <-- this must be here
+    status = models.CharField(max_length=20, default='Pending')
+    created_at = models.DateTimeField(auto_now_add=True)

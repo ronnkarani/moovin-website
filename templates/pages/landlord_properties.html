@@ -10,6 +10,11 @@
     <nav>
       <ul>
         <li>
+          <a href="{% url 'landlord' %}">
+            <i class="fa-solid fas fa-user"></i> Profile
+          </a>
+      </li>
+        <li>
   <a href="{% url 'landlord_properties' %}">
     <i class="fa-solid fa-building"></i> My Properties
   </a>
@@ -46,12 +51,22 @@
           {% if properties %}
           {% for property in properties %}
             <tr>
-              <td>{{ property.title }}</td>
-              <td>{{ property.location }}</td>
-              <td>{{ property.status }}</td>
-              <td>--</td> <!-- You can populate this later with tenant info -->
-              <td><button href="#">Edit</button></td>
-            </tr>
+  <td>
+    {% if property.image %}
+      <img src="{{ property.image.url }}" width="80" />
+    {% else %}
+      No Image
+    {% endif %}
+  </td>
+  <td>{{ property.title }}</td>
+  <td>{{ property.location }}</td>
+  <td>{{ property.status }}</td>
+<td>
+  <a href="{% url 'edit_property' property.id %}">
+    <button>Edit</button>
+  </a>
+</td></tr>
+
           {% endfor %}
         {% else %}
           <tr><td colspan="5">No properties yet.</td></tr>
