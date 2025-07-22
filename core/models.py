@@ -61,9 +61,4 @@ class RepairRequest(models.Model):
     def __str__(self):
         return f"{self.tenant.username} - {self.property.title} - {self.status}"
     
-class RepairRequest(models.Model):
-    tenant = models.ForeignKey(User, on_delete=models.CASCADE)
-    property = models.ForeignKey(Property, on_delete=models.CASCADE)
-    issue = models.TextField()  # <-- this must be here
-    status = models.CharField(max_length=20, default='Pending')
-    created_at = models.DateTimeField(auto_now_add=True)
+
