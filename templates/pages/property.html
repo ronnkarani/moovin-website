@@ -44,7 +44,6 @@
 {% if property.image %}
     <img src="{{ property.image.url }}" alt="Property Image">
 {% else %}
-    <img src="{% static 'images/hero.jpg' %}" alt="No Image">
 {% endif %}    <div class="property-info">
       <h3>{{ property.title }}</h3>
       <p class="type">{{ property.property_type }}</p>
