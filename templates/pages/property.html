@@ -41,8 +41,11 @@
       <div class="property-grid">
 {% for property in properties %}
   <div class="property-card">
-    <img src="{{ property.image.url }}" alt="{{ property.title }}" />
-    <div class="property-info">
+{% if property.image %}
+    <img src="{{ property.image.url }}" alt="Property Image">
+{% else %}
+    <img src="{% static 'images/hero.jpg' %}" alt="No Image">
+{% endif %}    <div class="property-info">
       <h3>{{ property.title }}</h3>
       <p class="type">{{ property.property_type }}</p>
       <p class="price">Ksh {{ property.price }}/month</p>
@@ -56,7 +59,6 @@
 
       </div>
  
-      {% for proprty in properties %}
 <div class="pagination">
   {% if properties.has_previous %}
     <a href="?{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}
@@ -74,7 +76,6 @@
               page={{ properties.next_page_number }}">Next &raquo;</a>
   {% endif %}
 </div>
-{% endfor%}
 
   
 
