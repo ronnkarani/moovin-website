@@ -15,6 +15,7 @@ from django.contrib.auth import logout
 from .forms import PropertyForm, RepairRequestForm, RepairStatusForm
 from .models import RepairRequest, Property  # Make sure Repair is imported
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 class CustomLoginView(LoginView):
     template_name = 'pages/login.html'
 
@@ -65,7 +66,7 @@ def property_list(request):
             properties = properties.filter(price__gte=10000, price__lte=30000)
 
      # --- Pagination ---
-    paginator = Paginator(properties, 6)
+    paginator = Paginator(properties, 4)
     page = request.GET.get('page')
 
     try:

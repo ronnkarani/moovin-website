@@ -39,42 +39,39 @@
     <div class="container">
       <h2>Featured Properties</h2>
       <div class="property-grid">
-{% for property in properties %}
-  <div class="property-card">
-{% if property.image %}
-    <img src="{{ property.image.url }}" alt="Property Image">
-{% else %}
-{% endif %}    <div class="property-info">
-      <h3>{{ property.title }}</h3>
-      <p class="type">{{ property.property_type }}</p>
-      <p class="price">Ksh {{ property.price }}/month</p>
-      <p class="location">{{ property.location }}</p>
-      <a href="{% url 'property_detail' property.id %}" class="btn">View Details</a>
-    </div>
-  </div>
-{% empty %}
-  <p>No properties available.</p>
-{% endfor %}
-
+  {% for property in properties %}
+    <div class="property-card">
+  {% if property.image %}
+      <img src="{{ property.image.url }}" alt="Property Image">
+  {% else %}
+      <img src="{% static 'images/hero.jpg' %}" alt="No Image">
+  {% endif %}    <div class="property-info">
+        <h3>{{ property.title }}</h3>
+        <p class="type">{{ property.property_type }}</p>
+        <p class="price">Ksh {{ property.price }}/month</p>
+        <p class="location">{{ property.location }}</p>
+        <a href="{% url 'property_detail' property.id %}" class="btn">View Details</a>
       </div>
- 
-<div class="pagination">
-  {% if properties.has_previous %}
-    <a href="?{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}
-              {% if request.GET.type %}type={{ request.GET.type }}&{% endif %}
-              {% if request.GET.price %}price={{ request.GET.price }}&{% endif %}
-              page={{ properties.previous_page_number }}">&laquo; Prev</a>
-  {% endif %}
+    </div>
+  {% empty %}
+    <p>No properties available.</p>
+  {% endfor %}
 
-  <span>Page {{ properties.number }} of {{ properties.paginator.num_pages }}</span>
+        </div>
 
-  {% if properties.has_next %}
-    <a href="?{% if request.GET.location %}location={{ request.GET.location }}&{% endif %}
-              {% if request.GET.type %}type={{ request.GET.type }}&{% endif %}
-              {% if request.GET.price %}price={{ request.GET.price }}&{% endif %}
-              page={{ properties.next_page_number }}">Next &raquo;</a>
-  {% endif %}
-</div>
+  {% with query=request.GET.urlencode %}
+  <div class="pagination">
+    {% if properties.has_previous %}
+      <a href="?{{ query }}&page={{ properties.previous_page_number }}">« Prev</a>
+    {% endif %}
+
+    <span>Page {{ properties.number }} of {{ properties.paginator.num_pages }}</span>
+
+    {% if properties.has_next %}
+      <a href="?{{ query }}&page={{ properties.next_page_number }}">Next »</a>
+    {% endif %}
+  </div>
+  {% endwith %}
 
   
 
